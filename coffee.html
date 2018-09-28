@@ -52,10 +52,14 @@
 
     let coffeeImage = $('#coffee-image');
     $(coffeeImage).attr('src', 'static/coffee_beans.jpg');
+    let espressoButton = $('#espresso');
+    let latteButton = $('#latte');
+    let hotChocoButton = $('#hot-chocolate');
     // coffeeImage.setAttribute('src', 'static/coffee_beans.jpg');
     let revenueMessage;
 
     // use this JavaScript object in further study step
+    const drinksOrdered = [];
 
     const prices = {
         "brew": 2.05,
@@ -77,16 +81,43 @@
         $(coffeeImage).attr('src', 'static/coffee_beans.jpg');
         // coffeeImage.setAttribute('src', 'static/coffee_beans.jpg');
     }
-    function makeCoffee() {
+    function makeCoffee(drinkType) {
         setTimeout(machineImage, 1500);
         setTimeout(mugImage, 2500);
         setTimeout(beanImage, 3500);
+
+        drinksOrdered.push(drinkType); //pushing clicked drinktype
+
+        console.log(drinksOrdered);
     }
-    $(coffeeImage).on('click', makeCoffee);
-    // coffeeImage.addEventListener('click', makeCoffee);
+//  one event listener per button
+
+    // if image clicked add 'brew'
+
+    $(coffeeImage).on('click', function () {makeCoffee('brew');});
+    // if espresso clicked add 'espresso'
+
+    $(espressoButton).on('click', function () {makeCoffee('espresso');});    
+    // if chocolate clicked add 'hot chocolate'
+
+    $(hotChocoButton).on('click', function () {makeCoffee('hot chocolate');});
     
+    // if latte clicked add 'latte'
+    $(latteButton).on('click', function () {makeCoffee('latte');});    
 
+//
+    // coffeeImage.addEventListener('click', makeCoffee);
 
+    function revenue() { //pushing clicked drinktype
+
+    let total = 0;
+
+    for (let drink of drinksOrdered) {
+        let priceToAdd = prices[drink];
+        total += priceToAdd;
+    }
+    return total;
+}
 
 </script>
 
